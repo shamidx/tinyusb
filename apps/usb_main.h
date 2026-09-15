@@ -63,4 +63,3 @@ void usb3_task(void *arg);
 /* end of group usb3 */
 
 #endif /* __USB3_MAIN_H__ */
-

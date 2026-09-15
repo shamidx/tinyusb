@@ -114,7 +114,7 @@ bool usb_disk_read(void *buffer, uint32_t lba, uint16_t count)
         return false;
     }
 	uint8_t *ptr = pvPortMallocCoherent(512*count);
-	
+
     status_flag_cb = true;
     tuh_msc_read10(dev_addr, lun, ptr, lba, count, disk_io_complete_fat, 0);
     wait_for_disk_io_fat();

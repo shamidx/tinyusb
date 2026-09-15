@@ -252,7 +252,7 @@ bool hcd_parse_full_conf_descriptor( tusb_desc_configuration_t *desc_cfg, uint8_
   {
     return hcd_dwc3_parse_full_conf_descriptor(desc_cfg);
   }
-  
+
   return true;
 }
 
@@ -267,4 +267,3 @@ void hcd_int_handler(uint8_t rhport, bool in_isr) {
   }
 
 }
-
