@@ -23,7 +23,7 @@ _prune_buildable then intersects each family with what it can actually build.
 
 | # | Changed path | Build families | Build examples | HIL boards → tests |
 | 1 | `docs/`, `.claude/`, `*.md`, `*.rst`, `LICENSE` | — | — | — |
-| 1b | `.gitignore`, `.clang-format`, `.agents`, `.codex/**`, `.idea/**`, `test/{fuzz,unit-test}/**`, `test/hil/test/**`, non-build `.github/**`, packaging manifests | — | — | — |
+| 1b | `.gitignore`, `.clang-format`, `.agents`, `.codex/**`, `.idea/**`, `apps/**`, `test/{fuzz,unit-test}/**`, `test/hil/test/**`, non-build `.github/**`, packaging manifests | — | — | — |
 | 2 | `test/hil/**` (not `test/hil/test/**`) | — | — | all boards → all tests |
 | 2b | `tools/metrics.py`, `.github/scripts/metrics_*.py` | `ALL` (unchanged — `tinyusb_metrics` runs `metrics.py` as a build target) | `ALL` | — (nothing on the rig runs it) |
 | 3 | `src/portable/<port>/dcd_*`, `*_device.[ch]` | `FAM` | `DEV`+`DUAL` | `FAM`'s device-role boards → device+dual tests |
@@ -100,10 +100,13 @@ _NONCODE_RE = re.compile(
 #
 # test/{fuzz,unit-test} have their own jobs (cifuzz.yml, the unit-test pre-commit hook
 # and workflow); the Build matrix never compiles them, and test/hil is rule 2.
+# top-level apps/ is currently SoCFPGA integration code consumed by an external
+# FreeRTOS tree, not by this repo's own CI builds or HIL rosters.
 _META_RE = re.compile(
     r'^('
     r'\.(gitignore|gitattributes|clang-format|codespellrc|readthedocs\.yaml)$|'
     r'\.pre-commit-config\.yaml$|\.PVS-Studio/|\.agents$|\.codex/|\.idea/|\.vscode/|'
+    r'apps/|'
     r'sonar-project\.properties$|library\.json$|pkg\.yml$|repository\.yml$|'
     r'version\.yml$|SConscript$|'
     r'.*CMakePresets\.json$|hw/bsp/BoardPresets\.json$|examples/west\.yml$|'
