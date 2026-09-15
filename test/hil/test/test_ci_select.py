@@ -744,6 +744,19 @@ class TestPathFamilies(unittest.TestCase):
         self.assertEqual(ci_select.mcu_families('hw/mcu/no_such_vendor/x.c', REPO), set())
 
 
+class TestTopLevelAppsRule(unittest.TestCase):
+    def test_build_axis_treats_apps_as_no_contribution(self):
+        s = ci_select.classify_build(['apps/usb_main.c'], REPO)
+        self.assertFalse(s['full'])
+        self.assertEqual(s['families'], [])
+        self.assertEqual(s['family_examples'], {})
+
+    def test_hil_axis_treats_apps_as_no_contribution(self):
+        s = sel(['apps/usb_main.c'])
+        self.assertFalse(s['full'])
+        self.assertEqual(s['boards'], {})
+
+
 class TestMcuHilRule(unittest.TestCase):
     def test_mcu_no_longer_forces_full(self):
         s = ci_select.classify(['hw/mcu/nordic/nrf5x/nrf_clock.h'], REPO, ROSTERS)
@@ -801,6 +814,8 @@ class TestOrphanInvariant(unittest.TestCase):
     # so on a fork an espressif-only PR builds nowhere.
     UNBUILT_FAMILIES = {'cxd56', 'efm32', 'espressif', 'f1c100s', 'pic32mz', 'py32f0',
                         'same7x'}
+    if os.path.isdir(os.path.join(REPO, 'hw/bsp/socfpga')):
+        UNBUILT_FAMILIES |= {'socfpga'}
 
     def test_every_bsp_family_is_in_the_ci_matrix(self):
         sys.path.insert(0, os.path.join(REPO, '.github/scripts'))

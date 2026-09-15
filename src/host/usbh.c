@@ -77,6 +77,11 @@ TU_ATTR_WEAK bool hcd_dcache_clean_invalidate(const void* addr, uint32_t data_si
   return false;
 }
 
+TU_ATTR_WEAK bool hcd_parse_full_conf_descriptor(tusb_desc_configuration_t *desc_cfg, uint8_t rhport) {
+  (void) desc_cfg; (void) rhport;
+  return true;
+}
+
 TU_ATTR_WEAK usbh_class_driver_t const* usbh_app_driver_get_cb(uint8_t* driver_count) {
   *driver_count = 0;
   return NULL;
@@ -2064,6 +2069,12 @@ static void process_enumeration(tuh_xfer_t *xfer) {
     case ENUM_SET_CONFIG: {
       uint8_t config_idx = (uint8_t) tu_le16toh(xfer->setup->wIndex);
       if (tuh_enum_descriptor_configuration_cb(daddr, config_idx, (const tusb_desc_configuration_t*) _usbh_epbuf.ctrl)) {
+        // For xHCI: pass full config to HCD before SET_CONFIGURATION
+        const uint8_t rhport = usbh_get_rhport(daddr);
+        if (!hcd_parse_full_conf_descriptor((tusb_desc_configuration_t*) _usbh_epbuf.ctrl, rhport)) {
+          is_enum_failed = true;
+          break;
+        }
         is_enum_failed = !tuh_configuration_set(daddr, config_idx+1u, process_enumeration, ENUM_CONFIG_DRIVER);
       } else {
         config_idx++;
