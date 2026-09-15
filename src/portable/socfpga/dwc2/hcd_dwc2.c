@@ -377,7 +377,7 @@ bool hcd_dwc2_init(uint8_t rhport, const tusb_rhport_init_t* rh_init) {
       ERROR("Unable to deassert reset");
       return false;
   }
-  
+
   if (rstmgr_deassert_reset(RST_USB0ECC) != 0)
   {
       ERROR("Unable to deassert reset");

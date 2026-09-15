@@ -355,7 +355,7 @@ bool hcd_dwc3_edpt_xfer(uint8_t rhport, uint8_t daddr, uint8_t ep_addr, uint8_t 
     {
 	  if( dir == TUSB_DIR_OUT )
 	  {
-        usb_dcache_clean(buffer, buflen); 
+        usb_dcache_clean(buffer, buflen);
 	  }
       endpoint_transfer(&Usb3handle->xhci_priv, (int) ep_num, (uint8_t) dir, buffer, buflen);
     }

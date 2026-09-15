@@ -40,7 +40,7 @@ void dealloc_usb_port(Usb3_Handle_t*handle);
  * @brief api to check whether the reset process has completed or not
  * @param[in] rhport portid of the correspondinf port
  * @return
- *  - true, if operation is successul,
+ *  - true, if operation is successful,
  *  - false, if the operation fails
  */
 bool usb_port_reset_end(uint8_t rhport);
@@ -54,8 +54,8 @@ void reset_usb_port(uint8_t rhport);
 /*
  * @brief  initialize the HCD queue
  * @return
- *  0, if initalization is successful,
- *  errno, incase of any failure
+ *  0, if initialization is successful,
+ *  errno, in case of any failure
  */
 int init_hcd_params(void);
 

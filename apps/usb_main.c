@@ -58,7 +58,7 @@ void usb3_task(void *arg)
     }
 
     else
-    {    
+    {
         /*initialize host stack for usb3 HS port*/
         if (!tusb_init(USB3_HS_PORT, &host_init))
         {
@@ -75,4 +75,3 @@ void usb3_task(void *arg)
         osal_task_delay(100);
     }
 }
-
