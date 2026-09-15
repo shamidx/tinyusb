@@ -77,6 +77,11 @@ TU_ATTR_WEAK bool hcd_dcache_clean_invalidate(const void* addr, uint32_t data_si
   return false;
 }
 
+TU_ATTR_WEAK bool hcd_parse_full_conf_descriptor(tusb_desc_configuration_t *desc_cfg, uint8_t rhport) {
+  (void) desc_cfg; (void) rhport;
+  return true;
+}
+
 TU_ATTR_WEAK usbh_class_driver_t const* usbh_app_driver_get_cb(uint8_t* driver_count) {
   *driver_count = 0;
   return NULL;
