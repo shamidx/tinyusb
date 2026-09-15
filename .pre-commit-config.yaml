@@ -10,12 +10,16 @@ repos:
   - id: trailing-whitespace
     exclude: |
       (?x)^(
+        apps/|
+        src/portable/socfpga/|
         hw/bsp/mcx/sdk/
       )
   - id: end-of-file-fixer
     exclude: |
       (?x)^(
         .idea/|
+        apps/|
+        src/portable/socfpga/|
         hw/bsp/mcx/sdk/
       )
   - id: forbid-submodules
@@ -27,6 +31,8 @@ repos:
     args: [-w]
     exclude: |
       (?x)^(
+        apps/|
+        src/portable/socfpga/|
         lib/|
         hw/bsp/mcx/sdk/
       )
